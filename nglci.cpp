@@ -135,6 +135,114 @@ void dfci00(){
   cout << ffrac.num << "/" << ffrac.denom << " "<< gcd(ffrac.num, ffrac.denom) << endl; 
 }
 
+void afci10(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.fp >> ffrac.num >> ffrac.denom >> sfrac.fp >> sfrac.num >> sfrac.denom;
+  sfrac.toimproperfraction();
+  ffrac.toimproperfraction();
+  ffrac = addfraction(ffrac, sfrac);
+  cout << ffrac.num << "/" << ffrac.denom << " " << gcd(ffrac.num, ffrac.denom) << endl; 
+}
+
+void sfci10(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.fp >> ffrac.num >> ffrac.denom >> sfrac.fp >> sfrac.num >> sfrac.denom;
+  sfrac.toimproperfraction();
+  ffrac.toimproperfraction();
+  ffrac = subfraction(ffrac, sfrac);
+  cout << ffrac.num << "/" << ffrac.denom << " " << gcd(ffrac.num, ffrac.denom) << endl; 
+}
+
+void mfci10(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.fp >> ffrac.num >> ffrac.denom >> sfrac.fp >> sfrac.num >> sfrac.denom;
+  sfrac.toimproperfraction();
+  ffrac.toimproperfraction();
+  ffrac = divfraction(ffrac, sfrac);
+  cout << ffrac.num << "/" << ffrac.denom << " "<< gcd(ffrac.num, ffrac.denom) << endl; 
+}
+
+void dfci10(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.fp >> ffrac.num >> ffrac.denom >> sfrac.fp >> sfrac.num >> sfrac.denom;
+  sfrac.toimproperfraction();
+  ffrac.toimproperfraction();
+  ffrac = mulfraction(ffrac, sfrac);
+  cout << ffrac.num << "/" << ffrac.denom << " "<< gcd(ffrac.num, ffrac.denom) << endl; 
+}
+
+void afci11(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.fp >> ffrac.num >> ffrac.denom >> sfrac.fp >> sfrac.num >> sfrac.denom;
+  sfrac.toimproperfraction();
+  ffrac.toimproperfraction();
+  ffrac = addfraction(ffrac, sfrac);
+  ffrac.reduce();
+  cout << ffrac.num << "/" << ffrac.denom << endl; 
+}
+
+void sfci11(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.fp >> ffrac.num >> ffrac.denom >> sfrac.fp >> sfrac.num >> sfrac.denom;
+  sfrac.toimproperfraction();
+  ffrac.toimproperfraction();
+  ffrac = subfraction(ffrac, sfrac);
+  ffrac.reduce();
+  cout << ffrac.num << "/" << ffrac.denom << endl; 
+}
+
+void mfci11(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.fp >> ffrac.num >> ffrac.denom >> sfrac.fp >> sfrac.num >> sfrac.denom;
+  sfrac.toimproperfraction();
+  ffrac.toimproperfraction();
+  ffrac = divfraction(ffrac, sfrac);
+  ffrac.reduce();
+  cout << ffrac.num << "/" << ffrac.denom << endl; 
+}
+
+void dfci11(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.fp >> ffrac.num >> ffrac.denom >> sfrac.fp >> sfrac.num >> sfrac.denom;
+  sfrac.toimproperfraction();
+  ffrac.toimproperfraction();
+  ffrac = mulfraction(ffrac, sfrac);
+  ffrac.reduce();
+  cout << ffrac.num << "/" << ffrac.denom << endl; 
+}
+
+void afci01(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.num >> ffrac.denom >> sfrac.num >> sfrac.denom;
+  ffrac = addfraction(ffrac, sfrac);
+  ffrac.reduce();
+  cout << ffrac.num << "/" << ffrac.denom << endl; 
+}
+
+void sfci01(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.num >> ffrac.denom >> sfrac.num >> sfrac.denom;
+  ffrac = subfraction(ffrac, sfrac);
+  ffrac.reduce();
+  cout << ffrac.num << "/" << ffrac.denom << endl; 
+}
+
+void mfci01(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.num >> ffrac.denom >> sfrac.num >> sfrac.denom;
+  ffrac = divfraction(ffrac, sfrac);
+  ffrac.reduce();
+  cout << ffrac.num << "/" << ffrac.denom << endl; 
+}
+
+void dfci01(){
+  fraction ffrac, sfrac;
+  cin >> ffrac.num >> ffrac.denom >> sfrac.num >> sfrac.denom;
+  ffrac = mulfraction(ffrac, sfrac);
+  ffrac.reduce();
+  cout << ffrac.num << "/" << ffrac.denom << endl; 
+}
+
 int nglci(){
   string action;
   bool running = true;
@@ -160,6 +268,18 @@ int nglci(){
     else if (action == "sf00") sfci00();
     else if (action == "mf00") mfci00();
     else if (action == "df00") dfci00();
+    else if (action == "af10") afci10();
+    else if (action == "sf10") sfci10();
+    else if (action == "mf10") mfci10();
+    else if (action == "df10") dfci10();
+    else if (action == "af11") afci11();
+    else if (action == "sf11") sfci11();
+    else if (action == "mf11") mfci11();
+    else if (action == "df11") dfci11();
+    else if (action == "af01") afci01();
+    else if (action == "sf01") sfci01();
+    else if (action == "mf01") mfci01();
+    else if (action == "df01") dfci01();
     else if (action == "ex") return 0;
     else if (action == "cl") system("clear");
     else if (action == "graphics") return 1;
