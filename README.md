@@ -7,7 +7,7 @@
 * ```bash
   git clone https://github.com/rucomen5978/newgcdlcm
   cd ngl
-  gcc main.cpp nglib.h nglf.cpp nglci.cpp ngraphicsl.cpp -o newgcdlcm -lm -lSDL2
+  g++ main.cpp nglib.h nglf.cpp nglci.cpp ngraphicsl.cpp -o newgcdlcm -lm -lSDL2
   ./newgcdlcm
 
 # console interface:
