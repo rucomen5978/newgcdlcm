@@ -4,7 +4,7 @@
 * ubuntu/debian - sudo apt install gcc
 * arch/monjaro  - sudo pacman -S gcc
 * ```bash
-  git clone https://github.com/rucomen5978/nglegacy
+  git clone --branch nglegacy --single-branch https://github.com/rucomen5978/nglegacy
   cd ngl
   gcc main.c -o ngl -lm
   ./ngl
