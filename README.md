@@ -4,7 +4,7 @@
 * ubuntu/debian - sudo apt install gcc sdl2
 * arch/monjaro  - sudo pacman -S gcc sdl2
 * ```bash
-  git clone https://github.com/rucomen5978/ngl
+  git clone https://github.com/rucomen5978/newgcdlcm
   cd ngl
   gcc main.cpp nglib.h nglf.cpp nglci.cpp ngraphicsl.cpp -o newgcdlcm -lm -lSDL2
   ./newgcdlcm
