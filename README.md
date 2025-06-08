@@ -34,17 +34,17 @@ here is the list:
 ### example for all listed functions
 * ``` ngl
   add 2 2
-  4.0000000
+  4
   sub 2 3
-  -1.0000000
+  -1
   mul 4 4
-  16.0000000
+  16
   div 16 8
-  2.0000000
+  2
   rod 36 7
   1
   pow 7 2
-  49.0000000
+  49
   gcd 7 14
   7
   lcm 12 36
@@ -61,7 +61,7 @@ here is the list:
   sin 90
   0.893997
   tan 45
-  1.619775
+  1.61978
 ### fraction part
 * rd  - takes an improper fraction (num and denom) and outputs the reduced num with the denom and gcd of the fraction you entered
 * itm - takes an improper fraction and outputs a proper fraction
@@ -121,3 +121,5 @@ so far, there is no particularly strong functionality in si, but it will be adde
 * mf - mul fraction
 * df - div fraction
 * dtf - decimal to fraction
+* laspo - last point
+* renpo - render points
