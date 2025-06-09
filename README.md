@@ -1,4 +1,4 @@
-# newgcdlcm![newgcdlcm](https://github.com/user-attachments/assets/29082cf1-5b3e-4308-b2bd-3a902df2bad8)
+# newgcdlcm
 
 
 ## install
