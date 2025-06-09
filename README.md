@@ -104,8 +104,22 @@ here is the list:
 to go to sdl interface you need to enter "graphics", after which you will see a window with a size of 1280 by 720 pixels
 so far, there is no particularly strong functionality in si, but it will be added for now, you can create an infinite number of points using the "new" command
 
-* new - create a white point according to the specified coordinates
-* after "new" you have to enter the X and Y coordinates, after that you will get information about the created point, its index and coordinates
+
+### there are two types of objects, simple points and lines that connect these points
+#### if you want to interact with dots in some way then at the end of the name of the mnemonic you should add "po" from the word "point"
+#### if you want to interact with the lines in some way, then at the end of the name of the mnemonic, you should add "li" from the word "line"
+##### also each object has its own indexes. for example, when creating a point, you are given an index of the points, lines will have other indexes
+###### also also the indices of all objects start from 1 and not from 0
+
+### mnemonics si:
+* newpo - creates a point at the given coordinates (x, y)
+* edipo - creates a point at the given coordinates, displays it, and gives it an index
+* newli - creates a line between two points, displays it, and creates a special line index
+* infoli - shows line data through its index
+* pali - Prints All LInes (meaning all that exist and all their data)
+* infopo - shows point data through its index
+* papo - Prints All POints (meaning all that exist and all their data)
+* eci - Enable Console Interface (nglci in si)
 
 ### abbreviations
 * add - additions
@@ -132,3 +146,10 @@ so far, there is no particularly strong functionality in si, but it will be adde
 * dtf - decimal to fraction
 * laspo - last point
 * renpo - render points
+* newpo - new point
+* edipo - edit point
+* newli - new line
+* infoli - info line
+* pali - prints all lines
+* infopo - info point
+* eci - enable console interface
