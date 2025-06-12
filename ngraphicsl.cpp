@@ -6,6 +6,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
 #include "nglib.h"
+#include <algorithm>
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -57,6 +58,19 @@ void renderall(SDL_Renderer* renderer, const vector<point>& points, const vector
   }
 }
 
+void delpo(int index){
+  if (index >= 1 && index <= points.size()){
+    points.erase(points.begin() + index - 1); 
+    for (size_t i = 0; i < points.size(); ++i) {
+      points[i].index = i + 1; 
+    }
+
+    lines.erase(remove_if(lines.begin(), lines.end(), [index](const line& l) { return l.index1 == index || l.index2 == index;}), lines.end());
+
+    for (size_t i = 0; i < lines.size(); ++i) lines[i].index = i + 1;
+  } else cout << "invalid index" << endl;
+}
+
 void cifsi(){
   string action;
   cin >> action;
@@ -65,6 +79,28 @@ void cifsi(){
     points.push_back({});
     point& laspo = points.back();
     cin >> laspo.x >> laspo.y;
+    laspo.index = points.size();
+    cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl;
+  }
+
+  // new random point
+  if (action == "newrapo"){
+    points.push_back({});
+    point& laspo = points.back();
+    int minx, maxx, miny, maxy;
+    cin >> minx >> maxx >> miny >> maxy;
+    laspo.x = getranum(minx, maxx);
+    laspo.y = getranum(miny, maxy);
+    laspo.index = points.size();
+    cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl;
+  }
+
+  // new random point full screen
+  if (action == "rpfs"){
+    points.push_back({});
+    point& laspo = points.back();
+    laspo.x = getranum(0, WINDOWWIDTH);
+    laspo.y = getranum(0, WINDOWHEIGHT);
     laspo.index = points.size();
     cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl;
   }
@@ -79,7 +115,7 @@ void cifsi(){
   }
   
   // new line
-  if (action == "newli"){
+  if (action == "newli" || action == "nl"){
     int index1, index2;
     cin >> index1 >> index2;
     lines.push_back({static_cast<int>(lines.size() + 1), index1, index2});
@@ -99,6 +135,15 @@ void cifsi(){
       cout << "indexli, index1, index2: " << l.index << " " << l.index1 << " " << l.index2 << endl; 
     } 
   }
+
+  // edit line
+  if (action == "edili"){
+    int indexli, newi1, newi2;
+    cin >> indexli >> newi1 >> newi2;
+    lines[indexli - 1].index1 = newi1;
+    lines[indexli - 1].index2 = newi2; 
+    cout << "indexli, newi1, newi2: " << indexli << " " << lines[indexli - 1].index1 << " " << lines[indexli - 1].index2 << endl; 
+  }
   
   // info index
   if (action == "infopo"){
@@ -112,6 +157,60 @@ void cifsi(){
     for (const auto& p : points){
       cout << "index, x, y: " << p.index << " " << p.x << " " << p.y << endl;
     } 
+  }
+
+  // delete po
+  if (action == "delpo"){
+    int index;
+    cin >> index;
+    delpo(index);
+  }
+
+  // connect all points
+  if (action == "cap"){
+    lines.clear();
+    int lineindex = 1;
+    for (size_t i = 0; i < points.size(); ++i){
+      for (size_t j = i + 1; j < points.size(); ++j) {
+        lines.push_back({lineindex++, static_cast<int>(i + 1), static_cast<int>(j + 1)}) ;
+      } 
+    }
+
+    cout << "created: " << lines.size() << " lines" << endl;
+  }
+
+  // delete points and lines
+  if (action == "dpal"){
+    points.clear();
+    lines.clear();
+  }
+
+  // loop rpfs
+  if (action == "lrpfs"){
+    int count;
+    cin >> count;
+    for (int i = 0; i < count; i++){
+      points.push_back({});
+      point& laspo = points.back();
+      laspo.x = getranum(0, WINDOWWIDTH);
+      laspo.y = getranum(0, WINDOWHEIGHT);
+      laspo.index = points.size();
+      cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl;
+    } 
+  }
+
+  // loop newrapo
+  if (action == "lnewrapo"){
+    int count, minx, maxx, miny, maxy;
+    cin >> count >> minx >> maxx >> miny >> maxy;
+    for (int i = 0; i < count; i++){
+      points.push_back({});
+      point& laspo = points.back();
+      laspo.x = getranum(minx, maxx);
+      laspo.y = getranum(miny, maxy);
+      laspo.index = points.size();
+      cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl; 
+    }
   }
 
   // enable console interface
