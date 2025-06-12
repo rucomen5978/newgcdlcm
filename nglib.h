@@ -56,5 +56,6 @@ fraction subfraction(fraction first, fraction second);
 fraction mulfraction(fraction first, fraction second);
 fraction divfraction(fraction first, fraction second);
 int getranum(int min, int max);
+void startsici();
 int mainsi();
 int nglci();
