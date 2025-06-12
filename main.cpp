@@ -3,6 +3,8 @@
 #include "nglib.h"
 
 int main(){
-  if (nglci() == 1) mainsi();
+  int returnci = nglci();
+  if (returnci == 1) mainsi();
+  else if (returnci == 2) startsici();
   return 0;
 }
