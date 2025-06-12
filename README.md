@@ -128,8 +128,10 @@ so far, there is no particularly strong functionality in si, but it will be adde
 * delpo - DELete POint (indexpo)
 * cap - Connect All Points
 * dpal - Delete Points And Lines
-* lrpfs - Loop RPFS (count)
-* lnewrapo - Loop NEWRAPO (count, minx, maxx, miny, maxy)
+* lrpfs - Loop RPFS (count, delay)
+* lnewrapo - Loop NEWRAPO (count, delay, minx, maxx, miny, maxy)
+* lrpfscap - Loop RPFS Connect All Points (count, delay)
+* lnewrapocap - Loop NEWRAPO Connect All Points (count, delay, minx, maxx, miny, maxy)
 
 ### abbreviations
 * add - additions
@@ -171,3 +173,5 @@ so far, there is no particularly strong functionality in si, but it will be adde
 * dpal - delete points and lines
 * lrpfs - loop random point full screen
 * lnewrapo - loop new random points
+* lnrpfscap - loop random point full screen connect all points
+* lnewrapocap - loop new random points connect all points
