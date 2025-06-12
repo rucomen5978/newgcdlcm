@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <unistd.h>
 using namespace std;
 
 #define WINDOWNAME "ngraphicsl"
@@ -71,7 +72,7 @@ void delpo(int index){
   } else cout << "invalid index" << endl;
 }
 
-void cifsi(){
+void cifsi(SDL_Renderer* renderer){
   string action;
   cin >> action;
   // new point
@@ -187,8 +188,8 @@ void cifsi(){
 
   // loop rpfs
   if (action == "lrpfs"){
-    int count;
-    cin >> count;
+    int count, delay_ms;
+    cin >> count >> delay_ms;
     for (int i = 0; i < count; i++){
       points.push_back({});
       point& laspo = points.back();
@@ -196,13 +197,46 @@ void cifsi(){
       laspo.y = getranum(0, WINDOWHEIGHT);
       laspo.index = points.size();
       cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl;
+
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+      SDL_RenderClear(renderer);
+      renderall(renderer, points, lines);
+      SDL_RenderPresent(renderer);
+      SDL_Delay(delay_ms);
+    } 
+  }
+
+  if (action == "lrpfscap"){
+    int count, delay_ms;
+    cin >> count >> delay_ms;
+    for (int i = 0; i < count; i++){
+      points.push_back({});
+      point& laspo = points.back();
+      laspo.x = getranum(0, WINDOWWIDTH);
+      laspo.y = getranum(0, WINDOWHEIGHT);
+      laspo.index = points.size();
+      cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl;
+      lines.clear();
+      int lineindex = 1;
+      for (size_t i = 0; i < points.size(); ++i){
+        for (size_t j = i + 1; j < points.size(); ++j) {
+          lines.push_back({lineindex++, static_cast<int>(i + 1), static_cast<int>(j + 1)}) ;
+        } 
+      }
+      cout << "created: " << lines.size() << " lines" << endl;     
+
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+      SDL_RenderClear(renderer);
+      renderall(renderer, points, lines);
+      SDL_RenderPresent(renderer);
+      SDL_Delay(delay_ms);
     } 
   }
 
   // loop newrapo
   if (action == "lnewrapo"){
-    int count, minx, maxx, miny, maxy;
-    cin >> count >> minx >> maxx >> miny >> maxy;
+    int count, delay_ms, minx, maxx, miny, maxy;
+    cin >> count >> delay_ms >> minx >> maxx >> miny >> maxy;
     for (int i = 0; i < count; i++){
       points.push_back({});
       point& laspo = points.back();
@@ -210,6 +244,42 @@ void cifsi(){
       laspo.y = getranum(miny, maxy);
       laspo.index = points.size();
       cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl; 
+
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+      SDL_RenderClear(renderer);
+      renderall(renderer, points, lines);
+      SDL_RenderPresent(renderer);
+      SDL_Delay(delay_ms);
+    }
+  }
+
+  // loop newrapo connect all points
+  if (action == "lnewrapocap"){
+    int count, delay_ms, minx, maxx, miny, maxy;
+    cin >> count >> delay_ms >> minx >> maxx >> miny >> maxy;
+    for (int i = 0; i < count; i++){
+      points.push_back({});
+      point& laspo = points.back();
+      laspo.x = getranum(minx, maxx);
+      laspo.y = getranum(miny, maxy);
+      laspo.index = points.size();
+      cout << "index, x, y: " << laspo.index << " " << laspo.x << " " << laspo.y << endl; 
+
+      lines.clear();
+      int lineindex = 1;
+      for (size_t i = 0; i < points.size(); ++i){
+        for (size_t j = i + 1; j < points.size(); ++j) {
+          lines.push_back({lineindex++, static_cast<int>(i + 1), static_cast<int>(j + 1)}) ;
+        } 
+      }
+
+      cout << "created: " << lines.size() << " lines" << endl;
+
+      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+      SDL_RenderClear(renderer);
+      renderall(renderer, points, lines);
+      SDL_RenderPresent(renderer);
+      SDL_Delay(delay_ms);
     }
   }
 
@@ -250,7 +320,7 @@ int mainsi(){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    cifsi();
+    cifsi(renderer);
     renderall(renderer, points, lines);
 
     SDL_RenderPresent(renderer); 
