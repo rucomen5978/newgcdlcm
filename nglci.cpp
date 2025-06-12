@@ -243,6 +243,12 @@ void dfci01(){
   cout << ffrac.num << "/" << ffrac.denom << endl; 
 }
 
+void ranumci(){
+  int min, max;
+  cin >> min >> max;
+  cout << getranum(min, max) << endl;
+}
+
 int nglci(){
   string action;
   bool running = true;
@@ -280,6 +286,7 @@ int nglci(){
     else if (action == "sf01") sfci01();
     else if (action == "mf01") mfci01();
     else if (action == "df01") dfci01();
+    else if (action == "ranum") ranumci();
     else if (action == "ex") return 0;
     else if (action == "cl") system("clear");
     else if (action == "graphics") return 1;
