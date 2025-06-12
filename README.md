@@ -16,7 +16,7 @@ in the program, all interaction occurs through entering the function name and ar
 the program consists of small functions that take from 1 to 4 arguments (except the first four).
 here is the list:
 
-* ex exit cl clear add sub mul div rod gcd lcm pow cos sin tan rd itm tif af00 sf00 mf00 df00 af10 sf10 mf10 df10 af11 sf11 mf11 df11 af01 sf01 mf01 df01 dtf graphics
+* ex exit cl clear add sub mul div rod gcd lcm pow cos sin tan rd itm tif af00 sf00 mf00 df00 af10 sf10 mf10 df10 af11 sf11 mf11 df11 af01 sf01 mf01 df01 dtf ranum graphics
 
 ### program part
 * ex exit - exit the program
@@ -29,6 +29,7 @@ here is the list:
 * div - accepts 2 digits and outputs the quotient               (/)
 * rod - accepts 2 digits and outputs the remainder of division  (%)
 * pow - accepts 2 digits and outputs the power                  (^)
+* ranum - accepts 2 digits and outputs random number
 
 * gcd - accepts 2 digits and outputs gcd
 * lcm - accepts 2 digits and outputs lcm
@@ -50,6 +51,8 @@ here is the list:
   7
   lcm 12 36
   36
+  ranum 0 100
+  81
 ### trigonometry part
 * cos - takes 1 number and outputs the cosine of the number
 * sin - takes 1 number and outputs the sine of the number
@@ -113,13 +116,20 @@ so far, there is no particularly strong functionality in si, but it will be adde
 
 ### mnemonics si:
 * newpo - creates a point at the given coordinates (x, y)
-* edipo - creates a point at the given coordinates, displays it, and gives it an index
-* newli - creates a line between two points, displays it, and creates a special line index
-* infoli - shows line data through its index
+* newrapo - creates a point at a random location within a given range (minx, maxx, miny, maxy)
+* rpfs - creates a point at a random location within the window size range 
+* edipo - creates a point at the given coordinates, displays it, and gives it an index (index, newx, newy)
+* newli || nl - creates a line between two points, displays it, and creates a special line index (indexp1, indexp2)
+* infoli - shows line data through its index (indexli)
 * pali - Prints All LInes (meaning all that exist and all their data)
-* infopo - shows point data through its index
+* infopo - shows point data through its index (indexpo)
 * papo - Prints All POints (meaning all that exist and all their data)
 * eci - Enable Console Interface (nglci in si)
+* delpo - DELete POint (indexpo)
+* cap - Connect All Points
+* dpal - Delete Points And Lines
+* lrpfs - Loop RPFS (count)
+* lnewrapo - Loop NEWRAPO (count, minx, maxx, miny, maxy)
 
 ### abbreviations
 * add - additions
@@ -153,3 +163,11 @@ so far, there is no particularly strong functionality in si, but it will be adde
 * pali - prints all lines
 * infopo - info point
 * eci - enable console interface
+* ranum - random number
+* newrapo - new random point
+* rpfs - (new) random point full screen
+* delpo - delete point
+* cap - connect all points
+* dpal - delete points and lines
+* lrpfs - loop random point full screen
+* lnewrapo - loop new random points
