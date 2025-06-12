@@ -1,10 +1,10 @@
 // ngl functions
 // nglf.cpp
 //
-// wrtim: without reduce to mixed fraction
+// wrtif: without reduce to mixed fraction
 
 #include "nglib.h"
-#include <iostream>
+#include <random>
 using namespace std;
 
 int gcd(int a, int b){
@@ -18,7 +18,7 @@ int gcd(int a, int b){
 
 int lcm(int a, int b) { return a * b / gcd(a, b); }
 
-// add fraction wrtim
+// add fraction wrtif
 fraction addfraction(fraction first, fraction second){
  int cd = lcm(first.denom, second.denom);
  first.num *= cd / first.denom;
@@ -28,7 +28,7 @@ fraction addfraction(fraction first, fraction second){
  return first;
 }
 
-// sub fraction wrtim
+// sub fraction wrtif
 fraction subfraction(fraction first, fraction second){
   int cd = lcm(first.denom, second.denom);
   first.toimproperfraction();
@@ -41,7 +41,7 @@ fraction subfraction(fraction first, fraction second){
   return first;
 } 
 
-// mul fraction wrtim
+// mul fraction wrtif
 fraction mulfraction(fraction first, fraction second){
   first.toimproperfraction();
   second.toimproperfraction();
@@ -50,11 +50,18 @@ fraction mulfraction(fraction first, fraction second){
   return first;
 }
 
-// div fraction wrtim
+// div fraction wrtif
 fraction divfraction(fraction first, fraction second){
   first.toimproperfraction();
   second.toimproperfraction();
   first.num *= second.denom;
   first.denom *= second.num;
   return first;
+}
+
+int getranum(int min, int max){
+  random_device rd;
+  mt19937 gen(rd());
+  uniform_int_distribution<> distrib(min, max);
+  return distrib(gen);
 }
