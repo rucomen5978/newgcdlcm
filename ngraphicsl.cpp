@@ -13,16 +13,32 @@
 using namespace std;
 
 #define WINDOWNAME "ngraphicsl"
-#define WINDOWPOSX SDL_WINDOWPOS_CENTERED
-#define WINDOWPOSY SDL_WINDOWPOS_CENTERED
-#define WINDOWWIDTH 1280
-#define WINDOWHEIGHT 720
+int WINDOWPOSX = SDL_WINDOWPOS_CENTERED;
+int WINDOWPOSY = SDL_WINDOWPOS_CENTERED;
+int WINDOWWIDTH = 1280;
+int WINDOWHEIGHT = 720;
 #define WINDOWFLAGS SDL_WINDOW_SHOWN
 
 #define RENDERERINDEX -1
 #define RENDERERFLAGS SDL_RENDERER_ACCELERATED
 
 // laspo - last point
+
+void startsici() {
+  cout << "WINDOWPOSX (0 centred): ";
+  cin >> WINDOWPOSX;
+  cout << "WINDOWPOSY (0 centred): ";
+  cin >> WINDOWPOSY;
+  cout << "WINDOW WIDTH (0 - 1280): ";
+  cin >> WINDOWWIDTH;
+  cout << "WINDOW HEIGHT (0 - 720): ";
+  cin >> WINDOWHEIGHT;
+  if (WINDOWPOSX == 0) WINDOWPOSX = SDL_WINDOWPOS_CENTERED;
+  if (WINDOWPOSY == 0) WINDOWPOSY = SDL_WINDOWPOS_CENTERED;
+  if (WINDOWWIDTH == 0) WINDOWWIDTH = 1280;
+  if (WINDOWHEIGHT == 0) WINDOWHEIGHT = 720;
+  mainsi();
+}
 
 struct point{
   int index;
