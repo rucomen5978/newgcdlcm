@@ -132,6 +132,9 @@ so far, there is no particularly strong functionality in si, but it will be adde
 * lnewrapo - Loop NEWRAPO (count, delay, minx, maxx, miny, maxy)
 * lrpfscap - Loop RPFS Connect All Points (count, delay)
 * lnewrapocap - Loop NEWRAPO Connect All Points (count, delay, minx, maxx, miny, maxy)
+* setpointstyle - can change style of point (index, new size, form)
+* setscreencenter - changes the center of the screen (centerx, centery, inverty)
+* setscale - multiplies the initial coordinates of the point by the number you specify (scale)
 
 ### abbreviations
 * add - additions
