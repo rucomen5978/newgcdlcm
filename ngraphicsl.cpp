@@ -5,6 +5,7 @@
 #include <SDL2/SDL_error.h>
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_video.h>
 #include "nglib.h"
 #include <algorithm>
@@ -14,6 +15,7 @@
 using namespace std;
 
 #define WINDOWNAME "ngraphicsl"
+#define tpo points[index-1]
 int WINDOWPOSX = SDL_WINDOWPOS_CENTERED;
 int WINDOWPOSY = SDL_WINDOWPOS_CENTERED;
 int WINDOWWIDTH = 1280;
@@ -72,8 +74,12 @@ struct point{
     // 0 - square
     // 1 - circle
     int formpo = 0;
+    Uint8 r = 255;
+    Uint8 g = 255;
+    Uint8 b = 255;
+    Uint8 a = 255;
     void render(SDL_Renderer* renderer) const {
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(renderer, r, g, b, a);
         if (formpo == 1){
             for (int w = -size; w <= size; w++){
                 for (int h = -size; h <= size; h++){
@@ -93,11 +99,15 @@ struct point{
 struct line{
     int index;
     int index1, index2;
+    Uint8 r = 255;
+    Uint8 g = 255;
+    Uint8 b = 255;
+    Uint8 a = 255;
     void render(SDL_Renderer* renderer, const vector<point>& points) const{
         if (index1 >= 1 && index1 <= points.size() && index2 >= 1 && index2 <= points.size()){
             const point& p1 = points[index1 - 1];
             const point& p2 = points[index2 - 1];
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            SDL_SetRenderDrawColor(renderer, r, g, b, a);
             SDL_RenderDrawLine(renderer, p1.x, p1.y, p2.x, p2.y);
         }
     }
@@ -127,6 +137,28 @@ void delpo(int index){
 
         for (size_t i = 0; i < lines.size(); ++i) lines[i].index = i + 1;
     } else cout << "invalid index" << endl;
+}
+
+double calculateAngle(int x1, int y1, int x2, int y2, int x3, int y3) {
+    int vec1_x = x1 - x2;
+    int vec1_y = y1 - y2;
+    
+    int vec2_x = x3 - x2;
+    int vec2_y = y3 - y2;
+    
+    double dotProduct = vec1_x * vec2_x + vec1_y * vec2_y;
+    
+    double mag1 = sqrt(vec1_x * vec1_x + vec1_y * vec1_y);
+    double mag2 = sqrt(vec2_x * vec2_x + vec2_y * vec2_y);
+    
+    if (mag1 > 0 && mag2 > 0) {
+        double cosAngle = dotProduct / (mag1 * mag2);
+        cosAngle = max(-1.0, min(1.0, cosAngle));
+        
+        return acos(cosAngle) * 180.0 / M_PI;
+    }
+    
+    return -1;
 }
 
 bool isClicked(int mx, int my, int rx, int ry, int rw, int rh){ return (mx >= rx && mx <= (rx + rw) && my >= ry && my <= (ry + rh)); }
@@ -212,11 +244,29 @@ void cifsi(SDL_Renderer* renderer, int mouseX, int mouseY, SDL_Event event){
         cout << "indexli, newi1, newi2: " << indexli << " " << lines[indexli - 1].index1 << " " << lines[indexli - 1].index2 << endl;
     }
 
+
+    if (action == "setcolorline" || action == "scl"){
+        int index, r, g, b, a = 255;
+        cin >> index >> r >> g >> b;
+        if (cin.peek() != '\n'){
+          cin >> a; 
+        } 
+
+        if (index >= 1 && index <= lines.size()){
+          lines[index-1].r = static_cast<Uint8>(r);
+          lines[index-1].g = static_cast<Uint8>(g);
+          lines[index-1].b = static_cast<Uint8>(b);
+          lines[index-1].a = static_cast<Uint8>(a);
+          cout << "line " << index << " color set to: (" << r << ", " << g << ", " << b << ", " << a << ")" << endl;
+        }
+    }
+
     // info index
     if (action == "infopo"){
         int index;
         cin >> index;
-        cout << "x: " << points[index - 1].x << endl << "y: " << points[index - 1].y << endl;
+        cout << "x: " << points[index - 1].x << endl << "y: " << points[index - 1].y << endl << "size: " << points[index - 1].size << endl << "form: " << points[index - 1].formpo << endl << "r: " << points[index-1].r << endl
+        << "g: " << tpo.g << endl << "b: " << tpo.b << endl << "a: " << tpo.a << endl;
     }
 
     // print all points
@@ -349,18 +399,38 @@ void cifsi(SDL_Renderer* renderer, int mouseX, int mouseY, SDL_Event event){
         }
     }
 
-    if (action == "setpointstyle"){
+    if (action == "setpointstyle" || action == "sps"){
         int index, newSize, form;
         cin >> index >> newSize >> form;
         points[index-1].size = newSize;
         points[index-1].formpo = form;
+        cout << "index: newsize: newform" << index << " " << newSize << " " << form << endl;
     }
+
+    if (action == "setcolorpoint" || action == "scp"){
+        int index, r, g, b, a = 255;
+        cin >> index >> r >> g >> b;
+        if (cin.peek() != '\n'){
+          cin >> a; 
+        } 
+
+        if (index >= 1 && index <= points.size()){
+          points[index-1].r = static_cast<Uint8>(r);
+          points[index-1].g = static_cast<Uint8>(g);
+          points[index-1].b = static_cast<Uint8>(b);
+          points[index-1].a = static_cast<Uint8>(a); 
+
+        }
+        cout << "index: r: g: b: a: " << index << " " << r << " " << g << " " << b << " " << a << endl;
+        
+    }
+
     // enable console interface
     if (action == "eci"){
         nglci();
     }
 
-    if (action == "setscreencenter"){
+    if (action == "setscreencenter" || action == "scc"){
         cin >> CENTER_X >> CENTER_Y >> INVERT_Y;
 
         for (auto& p : points){
@@ -386,6 +456,76 @@ void cifsi(SDL_Renderer* renderer, int mouseX, int mouseY, SDL_Event event){
         }
         cout << "scale set to 1:" << COORD_SCALE << endl;
     }
+
+    if (action == "measureangle" || action == "ma") {
+    int vertexIndex, point1Index, point2Index;
+    cin >> vertexIndex >> point1Index >> point2Index;
+    
+    if (vertexIndex < 1 || vertexIndex > points.size() || 
+        point1Index < 1 || point1Index > points.size() || 
+        point2Index < 1 || point2Index > points.size()) {
+        cout << "invalid point index" << endl;
+        } else {
+        const point& vertex = points[vertexIndex - 1];
+        const point& p1 = points[point1Index - 1];
+        const point& p2 = points[point2Index - 1];
+        
+        double angle = calculateAngle(p1.x, p1.y, vertex.x, vertex.y, p2.x, p2.y);
+        
+        if (angle >= 0) {
+            cout << "angle at point " << vertexIndex << " between points " 
+                 << point1Index << " and " << point2Index << ": " 
+                 << angle << " degrees" << endl;
+        } else {
+            cout << "cannot calculate angle - zero vectors" << endl;
+        }
+    }
+
+    if (action == "measureanglelines" || action == "mal") {
+      int lineIndex1, lineIndex2;
+      cin >> lineIndex1 >> lineIndex2;
+
+      if (lineIndex1 < 1 || lineIndex1 > lines.size() || 
+          lineIndex2 < 1 || lineIndex2 > lines.size()) {
+        cout << "invalid line index" << endl;
+      } else {
+        const line& l1 = lines[lineIndex1 - 1];
+        const line& l2 = lines[lineIndex2 - 1];
+
+        if (l1.index1 >= 1 && l1.index1 <= points.size() && 
+            l1.index2 >= 1 && l1.index2 <= points.size() &&
+            l2.index1 >= 1 && l2.index1 <= points.size() && 
+            l2.index2 >= 1 && l2.index2 <= points.size()) {
+
+          const point& p11 = points[l1.index1 - 1];
+          const point& p12 = points[l1.index2 - 1];
+          const point& p21 = points[l2.index1 - 1];
+          const point& p22 = points[l2.index2 - 1];
+
+          // Находим направляющие векторы линий
+          int vec1_x = p12.x - p11.x;
+          int vec1_y = p12.y - p11.y;
+          int vec2_x = p22.x - p21.x;
+          int vec2_y = p22.y - p21.y;
+
+          double angle = calculateAngle(p11.x + vec1_x, p11.y + vec1_y, 
+              p11.x, p11.y, 
+              p21.x + vec2_x, p21.y + vec2_y);
+
+          if (angle >= 0) {
+            cout << "angle between line " << lineIndex1 << " and line " 
+              << lineIndex2 << ": " << angle << " degrees" << endl;
+          } else {
+            cout << "cannot calculate angle - zero vectors" << endl;
+          }
+        } else {
+          cout << "invalid point indices in lines" << endl;
+        }
+      }
+    } 
+  }
+
+
 }
 
 int mainsi(){
